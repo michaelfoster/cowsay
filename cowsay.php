@@ -63,7 +63,7 @@ $wrap = $opts['W'];
 if($after_args != '')
 	$message = $after_args;
 else
-	$message = trim(stream_get_contents(STDIN));
+	$message = rtrim(stream_get_contents(STDIN), "\r\n");
 
 if ($opts['n']) {
 	$message = wordwrap($message, $wrap);
