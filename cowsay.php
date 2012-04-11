@@ -16,7 +16,19 @@ $opts_default = array(
 	'W' => 40
 );
 
-$opts = array_merge($opts_default, getopt($shortoptions = 'bde:f:ghlLnNpstT:wW:y'));
+$opts = getopt($shortoptions = 'bde:f:ghlLnNpstT:wW:y');
+
+// find the start of the message (after getopt)
+$index = 1;
+foreach($opts as $key => $val) {
+	$index++;
+	if($val !== false)
+		$index++;
+}
+
+$after_args = implode(' ', array_slice($argv, $index));
+
+$opts = array_merge($opts_default, $opts);
 
 // Make $opts easier to use
 foreach (str_split($shortoptions) as $c) {
@@ -27,6 +39,7 @@ foreach (str_split($shortoptions) as $c) {
 	if (!isset($opts[$c]))
 		$opts[$c] = false;
 }
+
 
 if ($opts['h'])
 	die(display_usage());
@@ -47,7 +60,10 @@ $cowfile = $opts['f'];
 $wrap = $opts['W'];
 
 // Get input
-$message = trim(stream_get_contents(STDIN));
+if($after_args != '')
+	$message = $after_args;
+else
+	$message = trim(stream_get_contents(STDIN));
 
 if ($opts['n']) {
 	$message = wordwrap($message, $wrap);
