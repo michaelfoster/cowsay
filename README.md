@@ -10,7 +10,7 @@ Usage
     Usage: cowsay.php [-bdgpstwy] [-h] [-e eyes] [-f cowfile]
               [-l] [-n] [-T tongue] [-W wrapcolumn] [message]
 
-It should act in exactly the same way as the origina cowsay, so consult `cowsay(1)` for help.
+It should act in exactly the same way as the original cowsay, so consult `cowsay(1)` for help.
 
     % echo 'Hello, world!' | php cowsay.php 
      _______________
